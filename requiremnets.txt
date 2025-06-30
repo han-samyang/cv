@@ -5,7 +5,3 @@ plotly>=5.15.0
 scipy>=1.10.0
 openpyxl>=3.1.0
 matplotlib>=3.7.0
-
-# 추가 유틸리티 패키지
-base64
-io
