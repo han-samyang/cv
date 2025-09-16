@@ -5,10 +5,13 @@ import plotly.graph_objects as go
 import plotly.express as px
 from plotly.subplots import make_subplots
 from scipy.signal import savgol_filter, find_peaks
-from scipy.integrate import trapz, simpson
+from scipy.integrate import simpson
 import io
 import base64
 from typing import Dict, List, Tuple, Optional
+
+# numpy의 trapz 사용 (scipy.integrate.trapz는 deprecated)
+from numpy import trapz
 
 # 페이지 설정
 st.set_page_config(
