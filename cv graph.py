@@ -10,8 +10,11 @@ import io
 import base64
 from typing import Dict, List, Tuple, Optional
 
-# numpy의 trapz 사용 (scipy.integrate.trapz는 deprecated)
-from numpy import trapz
+# scipy의 trapezoid 사용 (numpy.trapz는 최신 버전에서 제거됨)
+try:
+    from scipy.integrate import trapezoid
+except ImportError:
+    from scipy.integrate import trapz as trapezoid
 
 # 페이지 설정
 st.set_page_config(
@@ -423,10 +426,10 @@ class CVAnalyzer:
             
             # 5. 올바른 면적 계산: baseline 아래 사각형 면적 - 곡선 아래 면적
             # Step 1: x1부터 x2까지 baseline 아래 사각형 면적
-            baseline_area = trapz(baseline, v_region)
+            baseline_area = trapezoid(baseline, v_region)
             
             # Step 2: x1부터 x2까지 실제 곡선 아래 면적  
-            curve_area = trapz(i_smooth, v_region)
+            curve_area = trapezoid(i_smooth, v_region)
             
             # Step 3: 피크 면적 = |baseline 면적 - 곡선 면적|
             # baseline이 곡선보다 위에 있으므로 양수가 나와야 함
@@ -550,7 +553,7 @@ class CVAnalyzer:
             positive_diff = np.maximum(diff, 0)  # 양수인 부분만
             
             # 6. trapz 적분으로 면적 계산
-            area_trapz = trapz(positive_diff, v_region)
+            area_trapz = trapezoid(positive_diff, v_region)
             
             if len(positive_diff) > 2:
                 try:
